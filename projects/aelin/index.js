@@ -43,9 +43,28 @@ function tvl(chain) {
     })
     ))).flat()
 
-    return sumTokens2({ api, tokensAndOwners: logs.map(i => ([i.args.purchaseToken, i.args.poolAddress])) })
+    const res = sumTokens2({ api, tokensAndOwners: logs.map(i => ([i.args.purchaseToken, i.args.poolAddress])) });
+    const b = await res;
+
+    // {
+    //   "ethereum:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": "105451938",
+    // }
+
+    // {
+    //   "optimism:0xda10009cbd5d07dd0cecc66161fc93d7c9000da1": "501706399458448627",
+    //   "optimism:0x8c6f28f2f1a3c87f0f938b96d27520d9751ec8d9": "144102735659196883982538",
+    //   "optimism:0x7f5c764cbc14f9669b88837ca1490cca17c31607": "13004879063",
+    //   "optimism:0x8700daec35af8ff88c16bdf0418774cb3d7599b4": "2500000000000000000",
+    //   "optimism:0x94b008aa00579c1307b0ef2c499ad98a8ce58e58": "555198651",
+    //   "optimism:0x4200000000000000000000000000000000000042": "30000000000000000",
+    //   "optimism:0x4200000000000000000000000000000000000006": "2387882433588903",
+    //   "optimism:0x780f70882ff4929d1a658a4e8ec8d4316b24748a": "2880221361097132411",
+    // }
+
+    return res;
   }
 }
+
 
 function stakingTVL(chain) {
   return async (timestamp, ethBlock, chainBlocks) => {
@@ -101,12 +120,6 @@ function pool2TVL(chain) {
 module.exports = {
   ethereum: {
     tvl: tvl('ethereum'),
-    pool2: pool2TVL('ethereum'), 
-  },
-  optimism: {
-    tvl: tvl('optimism'),
-    staking: stakingTVL('optimism'), 
-    pool2: pool2TVL('optimism'), 
   },
   methodology: 'Aelin TVL consists of purchaseTokens held by pools, as well as AELIN token (staking) and LP (pool2) staked to receive a share of the revenue',
 }

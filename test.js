@@ -93,12 +93,20 @@ function mergeBalances(key, storedKeys, balancesObject) {
   }
 }
 
-if (process.argv.length < 3) {
-  console.error(`Missing argument, you need to provide the filename of the adapter to test.
-    Eg: node test.js projects/myadapter.js`);
-  process.exit(1);
-}
-const passedFile = path.resolve(process.cwd(), process.argv[2]);
+// if (process.argv.length < 3) {
+//   console.error(`Missing argument, you need to provide the filename of the adapter to test.
+//     Eg: node test.js projects/myadapter.js`);
+//   process.exit(1);
+// }
+
+//const passedFile = 'C:\\dev\\hoprnet\\DefiLlama-Adapters\\projects\\aelin\\index.js' //path.resolve(process.cwd(), process.argv[2]);
+//const passedFile = 'C:\\dev\\hoprnet\\DefiLlama-Adapters\\projects\\1inch\\index.js' //path.resolve(process.cwd(), process.argv[2]);
+const passedFile = 'C:\\dev\\hoprnet\\DefiLlama-Adapters\\projects\\hopr\\index.js' //path.resolve(process.cwd(), process.argv[2]);
+
+
+console.log('passedFile', passedFile)
+
+
 
 const originalCall = sdk.api.abi.call
 sdk.api.abi.call = async (...args) => {
